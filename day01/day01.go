@@ -10,15 +10,14 @@ import (
 
 func Day01_1(filename string) (result int) {
 	l, r := readFile(filename)
-	sum := 0
 	for i := range l {
 		diff := r[i] - l[i]
 		if diff < 0 {
 			diff = -diff
 		}
-		sum += diff
+		result += diff
 	}
-	return sum
+	return result
 }
 
 func Day01_2(filename string) (result int) {
