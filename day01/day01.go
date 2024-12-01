@@ -21,7 +21,22 @@ func Day01_1(filename string) (result int) {
 }
 
 func Day01_2(filename string) (result int) {
-	return 0
+	l, r := readFile(filename)
+
+	// parse right list to map: value -> times it occurs in the list
+	rMap := map[int]int{}
+	for _, rInt := range r {
+		rMap[rInt]++
+	}
+
+	// multiply
+	for _, lInt := range l {
+		if rMap[lInt] > 0 {
+			result += lInt * rMap[lInt]
+		}
+	}
+
+	return result
 }
 
 func readFile(filename string) (lList, rList []int) {
