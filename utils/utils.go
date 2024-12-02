@@ -3,6 +3,7 @@ package utils
 import (
 	"bufio"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -27,7 +28,7 @@ func InputRows(filename string) (ch chan string) {
 	return ch
 }
 
-func InputRowsInt(filename string, mapper map[rune]int) (ch chan []int) {
+func InputRowsWithRuneMapper(filename string, mapper map[rune]int) (ch chan []int) {
 	ch = make(chan []int)
 	go func() {
 		file, err := os.Open(filename)
@@ -46,6 +47,35 @@ func InputRowsInt(filename string, mapper map[rune]int) (ch chan []int) {
 		close(ch)
 	}()
 	return ch
+}
+
+func InputRowsAsInts(filename string) (ch chan []int) {
+	ch = make(chan []int)
+	go func() {
+		file, err := os.Open(filename)
+		if err != nil {
+			close(ch)
+			return
+		}
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			row := rowAsInts(scanner.Text())
+			ch <- row
+		}
+		close(ch)
+	}()
+	return ch
+}
+
+func rowAsInts(row string) (result []int) {
+	for _, s := range strings.Fields(row) {
+		i, err := strconv.Atoi(s)
+		if err != nil {
+			panic(err)
+		}
+		result = append(result, i)
+	}
+	return result
 }
 
 func InputCols(filename string) (result []string) {
