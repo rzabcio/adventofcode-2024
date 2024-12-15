@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"unicode/utf8"
 )
 
 func InputCh(filename string) (ch chan string) {
@@ -118,10 +119,21 @@ func Max(array []int) int {
 	return max
 }
 
+// func ReverseString(s string) string {
+// 	r := []rune(s)
+// 	for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
+// 		r[i], r[j] = r[j], r[i]
+// 	}
+// 	return string(r)
+// }
+
 func ReverseString(s string) string {
-	r := []rune(s)
-	for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
-		r[i], r[j] = r[j], r[i]
+	size := len(s)
+	buf := make([]byte, size)
+	for start := 0; start < size; {
+		r, n := utf8.DecodeRuneInString(s[start:])
+		start += n
+		utf8.EncodeRune(buf[size-start:], r)
 	}
-	return string(r)
+	return string(buf)
 }
