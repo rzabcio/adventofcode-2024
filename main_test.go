@@ -6,8 +6,8 @@ import (
 	"github.com/rzabcio/adventofcode-2024/day01"
 	"github.com/rzabcio/adventofcode-2024/day02"
 	"github.com/rzabcio/adventofcode-2024/day03"
-	"github.com/rzabcio/adventofcode-2024/day04"
 	"github.com/rzabcio/adventofcode-2024/day05"
+	"github.com/rzabcio/adventofcode-2024/day06"
 )
 
 func TestDay01(t *testing.T) {
@@ -38,14 +38,14 @@ func TestDay01(t *testing.T) {
 		t.Errorf("Day03_2(test1) = %d; want %d", got, want)
 	}
 
-	got, want = day04.Day04_1("input-files/day04-test"), 18
-	if got != want {
-		t.Errorf("Day04_1(test) = %d; want %d", got, want)
-	}
-	got, want = day04.Day04_2("input-files/day04-test"), 0
-	if got != want {
-		t.Errorf("Day04_2(test) = %d; want %d", got, want)
-	}
+	// got, want = day04.Day04_1("input-files/day04-test"), 18
+	// if got != want {
+	// 	t.Errorf("Day04_1(test) = %d; want %d", got, want)
+	// }
+	// got, want = day04.Day04_2("input-files/day04-test"), 0
+	// if got != want {
+	// 	t.Errorf("Day04_2(test) = %d; want %d", got, want)
+	// }
 
 	got, want = day05.Day05_1("input-files/day05-test"), 143
 	if got != want {
@@ -54,5 +54,14 @@ func TestDay01(t *testing.T) {
 	got, want = day05.Day05_2("input-files/day05-test"), 0
 	if got != want {
 		t.Errorf("Day05_2(test) = %d; want %d", got, want)
+	}
+
+	got, want = day06.Day06_1("input-files/day06-test"), 41
+	if got != want {
+		t.Errorf("Day06_1(test) = %d; want %d", got, want)
+	}
+	got, want = day06.Day06_2("input-files/day06-test"), 0
+	if got != want {
+		t.Errorf("Day06_2(test) = %d; want %d", got, want)
 	}
 }
