@@ -96,8 +96,8 @@ func InputCols(filename string) (result []string) {
 }
 
 func MinMax(array []int) (int, int) {
-	var max int = array[0]
-	var min int = array[0]
+	max := array[0]
+	min := array[0]
 	for _, value := range array {
 		if max < value {
 			max = value

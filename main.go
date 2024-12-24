@@ -92,7 +92,7 @@ func remove(s []string, e string) []string {
 	if i < 0 {
 		return s
 	}
-	res := make([]string, 0)
+	var res []string
 	if i == 0 {
 		res = s[i+1:]
 	} else if i == len(s)-1 {
@@ -108,7 +108,7 @@ func removeInt(s []int, e int) []int {
 	if i < 0 {
 		return s
 	}
-	res := make([]int, 0)
+	var res []int
 	if i == 0 {
 		res = s[i+1:]
 	} else if i == len(s)-1 {
