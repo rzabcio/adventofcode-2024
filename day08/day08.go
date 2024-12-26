@@ -13,13 +13,17 @@ func Day08_1(filename string) (result int) {
 }
 
 func Day08_2(filename string) (result int) {
+	am := NewAntennaMap(filename)
+	am.withHarmonics = true
+	result = am.FindAllAntinodes()
 	return result
 }
 
 type AntennaMap struct {
-	area         map[int]map[int]*Antenna
-	antennas     map[rune][]*Antenna
-	sizeX, sizeY int
+	area          map[int]map[int]*Antenna
+	antennas      map[rune][]*Antenna
+	sizeX, sizeY  int
+	withHarmonics bool // for part 2
 }
 
 func NewAntennaMap(filename string) (am AntennaMap) {
@@ -72,7 +76,11 @@ func (am *AntennaMap) FindAntinodes(r rune) {
 		a1 := am.antennas[r][i]
 		for j := i + 1; j < len(am.antennas[r]); j++ {
 			a2 := am.antennas[r][j]
-			am.FindAntinodesForAntennas(a1, a2)
+			if am.withHarmonics {
+				am.FindAntinodesForAntennasWithHarmonics(a1, a2)
+			} else {
+				am.FindAntinodesForAntennas(a1, a2)
+			}
 		}
 	}
 }
@@ -86,6 +94,17 @@ func (am *AntennaMap) FindAntinodesForAntennas(a1, a2 *Antenna) {
 	// antinode 2
 	antiX, antiY = a2.x-distX, a2.y-distY
 	am.MarkAntinode(antiX, antiY, a2.antenna)
+}
+
+func (am *AntennaMap) FindAntinodesForAntennasWithHarmonics(a1, a2 *Antenna) {
+	distX := a1.x - a2.x
+	distY := a1.y - a2.y
+	// antinode 1
+	for x, y := a1.x+distX, a1.y+distY; am.MarkAntinode(x, y, a1.antenna); x, y = x+distX, y+distY {
+	}
+	// antinode 2
+	for x, y := a2.x-distX, a2.y-distY; am.MarkAntinode(x, y, a2.antenna); x, y = x-distX, y-distY {
+	}
 }
 
 func (am *AntennaMap) MarkAntinode(x, y int, r rune) bool {
@@ -111,6 +130,23 @@ func (am *AntennaMap) CountAntinodes() (count int) {
 		for x := 0; x < am.sizeX; x++ {
 			if a, ok := am.area[x][y]; ok {
 				if a.IsAntinode() {
+					count++
+				}
+			}
+		}
+	}
+	// part 2: count also antennas if there is more than one
+	// and if it is not already an antinode
+	if am.withHarmonics {
+		for r, antennas := range am.antennas {
+			if r == '.' {
+				continue
+			}
+			if len(antennas) < 2 {
+				continue
+			}
+			for _, a := range antennas {
+				if !a.IsAntinode() {
 					count++
 				}
 			}
