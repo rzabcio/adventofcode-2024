@@ -10,6 +10,7 @@ import (
 	"github.com/rzabcio/adventofcode-2024/day06"
 	"github.com/rzabcio/adventofcode-2024/day07"
 	"github.com/rzabcio/adventofcode-2024/day08"
+	"github.com/rzabcio/adventofcode-2024/day09"
 )
 
 func TestDay01(t *testing.T) {
@@ -83,5 +84,14 @@ func TestDay01(t *testing.T) {
 	got, want = day08.Day08_2("input-files/day08-test"), 34
 	if got != want {
 		t.Errorf("Day08_2(test) = %d; want %d", got, want)
+	}
+
+	got, want = day09.Day09_1("input-files/day09-test"), 1928
+	if got != want {
+		t.Errorf("Day09_1(test) = %d; want %d", got, want)
+	}
+	got, want = day09.Day09_2("input-files/day09-test"), 0
+	if got != want {
+		t.Errorf("Day09_2(test) = %d; want %d", got, want)
 	}
 }
